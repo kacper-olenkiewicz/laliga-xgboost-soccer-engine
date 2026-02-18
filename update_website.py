@@ -84,17 +84,30 @@ def main():
         p_draw = float(probs[1] * 100)
         p_away = float(probs[0] * 100)
 
-        rec, color = "No Bet", "neutral"
-        if p_home > 50: rec, color = "1 (Gospodarz)", "win"
-        elif p_away > 45: rec, color = "2 (Gość)", "lose"
-        elif p_home > 40: rec, color = "1X (Bezpiecznie)", "safe"
-        
-        if is_synthetic: rec += "*"
+        rec = "Ryzykowny mecz "
+        match_class = "neutral"
+
+        if p_home > 55:
+            rec = "Wygrana Gospodarzy "
+            match_class = "win"
+        elif p_away > 55:
+            rec = "Wygrana Gości "
+            match_class = "lose"
+        elif (p_home + pd) > 75:
+            rec = "Gospodarz lub Remis "
+            match_class = "safe"
+        elif (p_away + pd) > 75:
+            rec = "Goście lub Remis "
+            match_class = "safe"
 
         results_for_json.append({
-            "home": home, "away": away, 
-            "p_home": round(p_home, 1), "p_draw": round(p_draw, 1), "p_away": round(p_away, 1),
-            "rec": rec, "class": color
+            "home": input_row['HomeTeam'],
+            "away": input_row['AwayTeam'],
+            "p_home": round(p_home, 1),
+            "p_draw": round(p_draw, 1),
+            "p_away": round(p_away, 1),
+            "rec": rec,            
+            "class": match_class
         })
 
     if not os.path.exists('docs'):
