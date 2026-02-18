@@ -1,7 +1,7 @@
 # ⚽ LaLiga XGBoost Soccer Prediction Engine
 
 Automatyczny system przewidywania wyników meczów **La Liga** oparty na modelu **XGBoost**. Projekt codziennie pobiera dane, oblicza statystyki drużyn i generuje prognozy na nadchodzące mecze weekendowe, publikując wyniki na stronie GitHub Pages.
-
+**[Strona z wynikami](https://kacper-olenkiewicz.github.io/laliga-xgboost-soccer-engine/)**
 ---
 
 ## 📋 Spis treści
