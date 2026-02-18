@@ -3,93 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Typy La Liga</title>
+    <title>La Liga AI Predictor ⚽</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #1a1a2e; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
-        h1 { color: #4ecca3; margin-bottom: 5px; }
-        p { color: #a6a6a6; margin-bottom: 30px; }
-        
-        .container { max-width: 900px; margin: 0 auto; display: grid; gap: 20px; }
-        
-        .match-card {
-            background-color: #16213e;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 5px solid #555;
-        }
-
-        .teams { text-align: left; flex: 1; }
-        .teams h3 { margin: 0; font-size: 1.2rem; }
-        .teams span { font-size: 0.9rem; color: #888; }
-
-        .probs { display: flex; gap: 10px; margin: 0 20px; }
-        .prob-box { text-align: center; font-size: 0.85rem; }
-        .prob-val { font-weight: bold; display: block; font-size: 1.1rem; }
-
-        .prediction { 
-            background: #333; padding: 10px 20px; border-radius: 8px; font-weight: bold; min-width: 120px;
-        }
-
-        
-        .win { border-left-color: #4ecca3 !important; } 
-        .win .prediction { background-color: #4ecca3; color: #000; }
-        
-        .lose { border-left-color: #e94560 !important; } 
-        .lose .prediction { background-color: #e94560; color: #fff; }
-
-        .safe { border-left-color: #f9ed69 !important; } 
-        .safe .prediction { background-color: #f9ed69; color: #000; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .match-card { transition: transform 0.2s; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .match-card:hover { transform: translateY(-5px); }
+        .bg-win { background-color: #d4edda; border-left: 5px solid #28a745; }
+        .bg-lose { background-color: #f8d7da; border-left: 5px solid #dc3545; }
+        .bg-safe { background-color: #fff3cd; border-left: 5px solid #ffc107; }
+        .bg-neutral { background-color: #ffffff; border-left: 5px solid #6c757d; }
+        .team-name { font-weight: 700; font-size: 1.1rem; }
+        .rec-badge { font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h1>⚽ Prognozy AI - Weekend</h1>
-    <p>Model XGBoost | Skuteczność testowa: ~53%</p>
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">⚽ La Liga AI Predictor</h1>
+        <p class="lead text-muted">Powered by XGBoost & Python</p>
+        <p id="last-update" class="small text-secondary"></p>
+    </header>
 
-    <div class="container" id="matches-container">
-        <p>Ładowanie typów...</p>
+    <div id="matches-container" class="row g-4">
+        <div class="col-12 text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Wczytuję predykcje...</p>
+        </div>
     </div>
+</div>
 
-    <script>
-        
-        fetch('matches.json')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('matches-container');
-                container.innerHTML = ''; 
+<script>
+    const JSON_URL = 'matches.json';
 
-                data.forEach(match => {
-                    
-                    const card = `
-                        <div class="match-card ${match.class}">
-                            <div class="teams">
-                                <h3>${match.home} vs ${match.away}</h3>
-                                <span>La Liga</span>
+    async function loadMatches() {
+        try {
+            const response = await fetch(JSON_URL + '?t=' + new Date().getTime());
+            if (!response.ok) throw new Error("Błąd wczytywania danych");
+            
+            const matches = await response.json();
+            const container = document.getElementById('matches-container');
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><h3>Brak nadchodzących meczów.</h3></div>';
+                return;
+            }
+
+            matches.forEach(match => {
+                let cardClass = 'bg-neutral';
+                let badgeClass = 'bg-secondary';
+                
+                if (match.class === 'win') { cardClass = 'bg-win'; badgeClass = 'bg-success'; }
+                if (match.class === 'lose') { cardClass = 'bg-lose'; badgeClass = 'bg-danger'; }
+                if (match.class === 'safe') { cardClass = 'bg-safe'; badgeClass = 'bg-warning text-dark'; }
+
+                const html = `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card match-card ${cardClass} h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge ${badgeClass} rec-badge">Typ: ${match.rec}</span>
                             </div>
-                            
-                            <div class="probs">
-                                <div class="prob-box"><span class="prob-val" style="color:#4ecca3">${match.p_home}%</span>1</div>
-                                <div class="prob-box"><span class="prob-val" style="color:#f9ed69">${match.p_draw}%</span>X</div>
-                                <div class="prob-box"><span class="prob-val" style="color:#e94560">${match.p_away}%</span>2</div>
+                            <div class="row text-center align-items-center mb-3">
+                                <div class="col-5"><div class="team-name">${match.home}</div></div>
+                                <div class="col-2 fw-bold text-muted">VS</div>
+                                <div class="col-5"><div class="team-name">${match.away}</div></div>
                             </div>
-
-                            <div class="prediction">
-                                TYP: ${match.rec}
+                            <div class="progress-stats">
+                                <div class="d-flex justify-content-between small text-muted mb-1">
+                                    <span>Home: ${match.p_home}%</span>
+                                    <span>Away: ${match.p_away}%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: ${match.p_home}%"></div>
+                                    <div class="progress-bar bg-warning" style="width: ${match.p_draw}%"></div>
+                                    <div class="progress-bar bg-danger" style="width: ${match.p_away}%"></div>
+                                </div>
                             </div>
                         </div>
-                    `;
-                    container.innerHTML += card;
-                });
-            })
-            .catch(error => {
-                document.getElementById('matches-container').innerHTML = "<p style='color:red'>Błąd wczytywania pliku matches.json. Uruchom update_website.py!</p>";
-                console.error(error);
+                    </div>
+                </div>`;
+                container.innerHTML += html;
             });
-    </script>
-
+            document.getElementById('last-update').innerText = "Ostatnia aktualizacja: " + new Date().toLocaleString();
+        } catch (error) {
+            console.error(error);
+            document.getElementById('matches-container').innerHTML = '<h3 class="text-danger text-center">Błąd wczytywania danych.</h3>';
+        }
+    }
+    loadMatches();
+</script>
 </body>
 </html>
