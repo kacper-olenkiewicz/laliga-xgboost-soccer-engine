@@ -1,92 +1,101 @@
 [
     {
-        "home": "Elche",
-        "away": "Osasuna",
-        "p_home": 36.4,
-        "p_draw": 27.0,
-        "p_away": 36.6,
+        "home": "Levante",
+        "away": "Villarreal",
+        "p_home": 38.1,
+        "p_draw": 29.0,
+        "p_away": 32.9,
         "rec": "No Bet*",
         "class": "neutral"
     },
     {
-        "home": "Espanyol",
-        "away": "Celta",
-        "p_home": 35.6,
-        "p_draw": 26.6,
-        "p_away": 37.8,
-        "rec": "No Bet*",
-        "class": "neutral"
+        "home": "Ath Bilbao",
+        "away": "Elche",
+        "p_home": 45.6,
+        "p_draw": 27.3,
+        "p_away": 27.1,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
+    },
+    {
+        "home": "Sociedad",
+        "away": "Oviedo",
+        "p_home": 43.9,
+        "p_draw": 28.9,
+        "p_away": 27.1,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
+    },
+    {
+        "home": "Betis",
+        "away": "Rayo Vallecano",
+        "p_home": 49.4,
+        "p_draw": 28.4,
+        "p_away": 22.3,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
+    },
+    {
+        "home": "Osasuna",
+        "away": "Real Madrid",
+        "p_home": 41.9,
+        "p_draw": 28.0,
+        "p_away": 30.1,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
+    },
+    {
+        "home": "Ath Madrid",
+        "away": "Espanyol",
+        "p_home": 51.2,
+        "p_draw": 27.1,
+        "p_away": 21.7,
+        "rec": "1 (Gospodarz)*",
+        "class": "win"
     },
     {
         "home": "Getafe",
-        "away": "Villarreal",
-        "p_home": 38.5,
-        "p_draw": 25.2,
-        "p_away": 36.3,
-        "rec": "No Bet*",
-        "class": "neutral"
+        "away": "Sevilla",
+        "p_home": 43.9,
+        "p_draw": 29.0,
+        "p_away": 27.0,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
     },
     {
-        "home": "Sevilla",
-        "away": "Alaves",
-        "p_home": 47.7,
-        "p_draw": 24.4,
+        "home": "Barcelona",
+        "away": "Levante",
+        "p_home": 44.9,
+        "p_draw": 27.3,
         "p_away": 27.8,
         "rec": "1X (Bezpiecznie)*",
         "class": "safe"
     },
     {
-        "home": "Real Madrid",
-        "away": "Sociedad",
-        "p_home": 56.0,
-        "p_draw": 19.9,
-        "p_away": 24.1,
-        "rec": "1 (Gospodarz)*",
-        "class": "win"
-    },
-    {
-        "home": "Rayo Vallecano",
-        "away": "Ath Madrid",
-        "p_home": 34.7,
-        "p_draw": 28.0,
-        "p_away": 37.2,
-        "rec": "No Bet*",
-        "class": "neutral"
-    },
-    {
-        "home": "Levante",
-        "away": "Valencia",
-        "p_home": 40.9,
-        "p_draw": 29.8,
-        "p_away": 29.4,
+        "home": "Celta",
+        "away": "Mallorca",
+        "p_home": 49.0,
+        "p_draw": 25.8,
+        "p_away": 25.2,
         "rec": "1X (Bezpiecznie)*",
         "class": "safe"
     },
     {
-        "home": "Mallorca",
-        "away": "Betis",
-        "p_home": 37.1,
-        "p_draw": 24.0,
-        "p_away": 38.9,
-        "rec": "No Bet*",
-        "class": "neutral"
+        "home": "Villarreal",
+        "away": "Valencia",
+        "p_home": 50.7,
+        "p_draw": 26.0,
+        "p_away": 23.3,
+        "rec": "1 (Gospodarz)*",
+        "class": "win"
     },
     {
-        "home": "Girona",
-        "away": "Barcelona",
-        "p_home": 35.2,
-        "p_draw": 24.1,
-        "p_away": 40.7,
-        "rec": "No Bet*",
-        "class": "neutral"
-    },
-    {
-        "home": "Levante",
-        "away": "Villarreal",
-        "p_home": 37.0,
-        "p_draw": 28.7,
-        "p_away": 34.3,
-        "rec": "No Bet*",
-        "class": "neutral"
+        "home": "Alaves",
+        "away": "Girona",
+        "p_home": 45.4,
+        "p_draw": 28.5,
+        "p_away": 26.1,
+        "rec": "1X (Bezpiecznie)*",
+        "class": "safe"
     }
 ]
