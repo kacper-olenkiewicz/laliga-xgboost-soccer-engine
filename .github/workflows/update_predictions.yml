@@ -46,9 +46,9 @@ jobs:
 
 
     - name: Commit and Push changes
-      run: |
+      run: |       
         git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-        git add docs/weekend_fixtures.csv docs/matches.json weekend_fixtures.csv processed_data.csv
-        git commit -m "Automatyczna aktualizacja typów" || exit 0
+        git config user.email "<>" 
+        git add docs/matches.json
+        git commit -m "Automatyczna aktualizacja typów " || exit 0
         git push
