@@ -93,10 +93,10 @@ def main():
         elif p_away > 55:
             rec = "Wygrana Gości "
             match_class = "lose"
-        elif (p_home + pd) > 75:
+        elif (p_home + p_draw) > 75:
             rec = "Gospodarz lub Remis "
             match_class = "safe"
-        elif (p_away + pd) > 75:
+        elif (p_away + p_draw) > 75:
             rec = "Goście lub Remis "
             match_class = "safe"
 
