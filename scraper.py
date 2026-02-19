@@ -88,7 +88,7 @@ def scrape():
         df_fix = pd.DataFrame(fixtures).drop_duplicates()
         print(f"Sukces! Zapisano {len(df_fix)} meczów.")
     else:
-        print("⚠️ Brak meczów na liście. Tworzę awaryjny, pusty plik CSV.")
+        print(" Brak meczów na liście. Tworzę awaryjny, pusty plik CSV.")
         df_fix = pd.DataFrame(columns=["Home", "Away", "OddsH", "OddsA"])
 
 
