@@ -101,8 +101,8 @@ def main():
             match_class = "safe"
 
         results_for_json.append({
-            "home": input_row['HomeTeam'],
-            "away": input_row['AwayTeam'],
+            "home": input_row['Home'],
+            "away": input_row['Away'],
             "p_home": round(p_home, 1),
             "p_draw": round(p_draw, 1),
             "p_away": round(p_away, 1),
