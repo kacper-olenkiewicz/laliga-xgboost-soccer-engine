@@ -1,14 +1,5 @@
 [
     {
-        "home": "Ath Bilbao",
-        "away": "Elche",
-        "p_home": 38.0,
-        "p_draw": 31.6,
-        "p_away": 30.5,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Sociedad",
         "away": "Oviedo",
         "p_home": 36.4,
@@ -86,6 +77,15 @@
         "p_home": 37.7,
         "p_draw": 32.7,
         "p_away": 29.6,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Levante",
+        "away": "Alaves",
+        "p_home": 36.9,
+        "p_draw": 33.6,
+        "p_away": 29.5,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
