@@ -1,14 +1,5 @@
 [
     {
-        "home": "Levante",
-        "away": "Alaves",
-        "p_home": 36.9,
-        "p_draw": 33.6,
-        "p_away": 29.5,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Barcelona",
         "away": "Villarreal",
         "p_home": 33.0,
@@ -86,6 +77,15 @@
         "p_home": 35.3,
         "p_draw": 33.4,
         "p_away": 31.2,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Celta",
+        "away": "Real Madrid",
+        "p_home": 34.6,
+        "p_draw": 32.7,
+        "p_away": 32.7,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
