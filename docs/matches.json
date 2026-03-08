@@ -1,14 +1,5 @@
 [
     {
-        "home": "Celta",
-        "away": "Real Madrid",
-        "p_home": 34.6,
-        "p_draw": 32.7,
-        "p_away": 32.7,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Osasuna",
         "away": "Mallorca",
         "p_home": 38.2,
@@ -86,6 +77,15 @@
         "p_home": 35.3,
         "p_draw": 33.4,
         "p_away": 31.2,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Alaves",
+        "away": "Villarreal",
+        "p_home": 29.6,
+        "p_draw": 31.3,
+        "p_away": 39.1,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
