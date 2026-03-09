@@ -1,55 +1,10 @@
 [
     {
-        "home": "Osasuna",
-        "away": "Mallorca",
-        "p_home": 38.2,
-        "p_draw": 32.6,
-        "p_away": 29.2,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Levante",
-        "away": "Girona",
-        "p_home": 37.4,
-        "p_draw": 33.2,
-        "p_away": 29.3,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Ath Madrid",
-        "away": "Sociedad",
-        "p_home": 41.4,
-        "p_draw": 32.8,
-        "p_away": 25.8,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Ath Bilbao",
-        "away": "Barcelona",
-        "p_home": 35.2,
-        "p_draw": 32.6,
-        "p_away": 32.2,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Villarreal",
         "away": "Elche",
         "p_home": 42.0,
         "p_draw": 30.6,
         "p_away": 27.3,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Getafe",
-        "away": "Betis",
-        "p_home": 35.2,
-        "p_draw": 33.6,
-        "p_away": 31.1,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     },
@@ -86,6 +41,33 @@
         "p_home": 29.6,
         "p_draw": 31.3,
         "p_away": 39.1,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Ath Madrid",
+        "away": "Getafe",
+        "p_home": 42.0,
+        "p_draw": 32.2,
+        "p_away": 25.7,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Oviedo",
+        "away": "Valencia",
+        "p_home": 30.0,
+        "p_draw": 34.2,
+        "p_away": 35.7,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Real Madrid",
+        "away": "Elche",
+        "p_home": 37.9,
+        "p_draw": 31.4,
+        "p_away": 30.8,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
