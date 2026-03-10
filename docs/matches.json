@@ -1,41 +1,5 @@
 [
     {
-        "home": "Villarreal",
-        "away": "Elche",
-        "p_home": 42.0,
-        "p_draw": 30.6,
-        "p_away": 27.3,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Sevilla",
-        "away": "Rayo Vallecano",
-        "p_home": 36.2,
-        "p_draw": 33.1,
-        "p_away": 30.7,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Valencia",
-        "away": "Alaves",
-        "p_home": 37.8,
-        "p_draw": 32.4,
-        "p_away": 29.8,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Espanyol",
-        "away": "Oviedo",
-        "p_home": 35.3,
-        "p_draw": 33.4,
-        "p_away": 31.2,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Alaves",
         "away": "Villarreal",
         "p_home": 29.6,
@@ -68,6 +32,51 @@
         "p_home": 37.9,
         "p_draw": 31.4,
         "p_away": 30.8,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Mallorca",
+        "away": "Espanyol",
+        "p_home": 36.9,
+        "p_draw": 32.0,
+        "p_away": 31.1,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Barcelona",
+        "away": "Sevilla",
+        "p_home": 47.4,
+        "p_draw": 27.8,
+        "p_away": 24.9,
+        "rec": "Gospodarz lub Remis ",
+        "class": "safe"
+    },
+    {
+        "home": "Betis",
+        "away": "Celta",
+        "p_home": 33.3,
+        "p_draw": 34.3,
+        "p_away": 32.4,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Sociedad",
+        "away": "Osasuna",
+        "p_home": 32.8,
+        "p_draw": 32.4,
+        "p_away": 34.8,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Rayo Vallecano",
+        "away": "Levante",
+        "p_home": 29.6,
+        "p_draw": 32.5,
+        "p_away": 37.9,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
