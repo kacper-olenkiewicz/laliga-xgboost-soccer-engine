@@ -1,14 +1,5 @@
 [
     {
-        "home": "Alaves",
-        "away": "Villarreal",
-        "p_home": 29.6,
-        "p_draw": 31.3,
-        "p_away": 39.1,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Ath Madrid",
         "away": "Getafe",
         "p_home": 42.0,
@@ -77,6 +68,15 @@
         "p_home": 29.6,
         "p_draw": 32.5,
         "p_away": 37.9,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Villarreal",
+        "away": "Sociedad",
+        "p_home": 47.5,
+        "p_draw": 27.2,
+        "p_away": 25.3,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
