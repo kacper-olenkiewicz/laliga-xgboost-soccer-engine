@@ -1,32 +1,5 @@
 [
     {
-        "home": "Ath Madrid",
-        "away": "Getafe",
-        "p_home": 42.0,
-        "p_draw": 32.2,
-        "p_away": 25.7,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Oviedo",
-        "away": "Valencia",
-        "p_home": 30.0,
-        "p_draw": 34.2,
-        "p_away": 35.7,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Real Madrid",
-        "away": "Elche",
-        "p_home": 37.9,
-        "p_draw": 31.4,
-        "p_away": 30.8,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Mallorca",
         "away": "Espanyol",
         "p_home": 36.9,
@@ -43,15 +16,6 @@
         "p_away": 24.9,
         "rec": "Gospodarz lub Remis ",
         "class": "safe"
-    },
-    {
-        "home": "Betis",
-        "away": "Celta",
-        "p_home": 33.3,
-        "p_draw": 34.3,
-        "p_away": 32.4,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
     },
     {
         "home": "Sociedad",
@@ -77,6 +41,51 @@
         "p_home": 47.5,
         "p_draw": 27.2,
         "p_away": 25.3,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Elche",
+        "away": "Mallorca",
+        "p_home": 41.1,
+        "p_draw": 30.5,
+        "p_away": 28.4,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Espanyol",
+        "away": "Getafe",
+        "p_home": 36.2,
+        "p_draw": 34.3,
+        "p_away": 29.6,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Levante",
+        "away": "Oviedo",
+        "p_home": 42.5,
+        "p_draw": 29.0,
+        "p_away": 28.4,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Osasuna",
+        "away": "Girona",
+        "p_home": 37.6,
+        "p_draw": 32.8,
+        "p_away": 29.6,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Sevilla",
+        "away": "Valencia",
+        "p_home": 32.9,
+        "p_draw": 35.4,
+        "p_away": 31.7,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
