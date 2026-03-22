@@ -1,14 +1,5 @@
 [
     {
-        "home": "Villarreal",
-        "away": "Sociedad",
-        "p_home": 47.5,
-        "p_draw": 27.2,
-        "p_away": 25.3,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Elche",
         "away": "Mallorca",
         "p_home": 41.1,
