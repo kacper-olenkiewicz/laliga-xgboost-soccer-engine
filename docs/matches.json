@@ -1,32 +1,5 @@
 [
     {
-        "home": "Oviedo",
-        "away": "Sevilla",
-        "p_home": 34.7,
-        "p_draw": 33.7,
-        "p_away": 31.6,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Alaves",
-        "away": "Osasuna",
-        "p_home": 37.0,
-        "p_draw": 31.9,
-        "p_away": 31.1,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
-        "home": "Girona",
-        "away": "Villarreal",
-        "p_home": 29.7,
-        "p_draw": 31.7,
-        "p_away": 38.6,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Real Madrid",
         "away": "Girona",
         "p_home": 43.0,
@@ -68,6 +41,51 @@
         "p_home": 29.7,
         "p_draw": 32.8,
         "p_away": 37.5,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Osasuna",
+        "away": "Betis",
+        "p_home": 37.4,
+        "p_draw": 31.8,
+        "p_away": 30.7,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Mallorca",
+        "away": "Rayo Vallecano",
+        "p_home": 36.9,
+        "p_draw": 32.0,
+        "p_away": 31.1,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Celta",
+        "away": "Oviedo",
+        "p_home": 44.1,
+        "p_draw": 30.0,
+        "p_away": 25.9,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Ath Bilbao",
+        "away": "Villarreal",
+        "p_home": 32.0,
+        "p_draw": 31.7,
+        "p_away": 36.3,
+        "rec": "Ryzykowny mecz ",
+        "class": "neutral"
+    },
+    {
+        "home": "Levante",
+        "away": "Getafe",
+        "p_home": 41.7,
+        "p_draw": 29.9,
+        "p_away": 28.4,
         "rec": "Ryzykowny mecz ",
         "class": "neutral"
     }
