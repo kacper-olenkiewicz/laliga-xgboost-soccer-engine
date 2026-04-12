@@ -1,14 +1,5 @@
 [
     {
-        "home": "Real Madrid",
-        "away": "Girona",
-        "p_home": 43.0,
-        "p_draw": 30.1,
-        "p_away": 26.9,
-        "rec": "Ryzykowny mecz ",
-        "class": "neutral"
-    },
-    {
         "home": "Sociedad",
         "away": "Alaves",
         "p_home": 33.3,
