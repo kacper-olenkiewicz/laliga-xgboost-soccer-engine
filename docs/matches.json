@@ -1,1 +1,92 @@
-[]
+[
+    {
+        "home": "Malaga",
+        "away": "Espanol",
+        "p_home": 37.9,
+        "p_draw": 34.2,
+        "p_away": 27.9,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Vallecano",
+        "away": "Ath Bilbao",
+        "p_home": 37.5,
+        "p_draw": 30.3,
+        "p_away": 32.2,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Alaves",
+        "away": "Ath Madrid",
+        "p_home": 20.7,
+        "p_draw": 24.3,
+        "p_away": 55.0,
+        "rec": "Goście lub Remis",
+        "class": "safe"
+    },
+    {
+        "home": "Barcelona",
+        "away": "Getafe",
+        "p_home": 74.0,
+        "p_draw": 14.2,
+        "p_away": 11.9,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Real Madrid",
+        "away": "Villarreal",
+        "p_home": 75.9,
+        "p_draw": 12.7,
+        "p_away": 11.4,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Elche",
+        "away": "Celta",
+        "p_home": 37.2,
+        "p_draw": 31.0,
+        "p_away": 31.8,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Sociedad",
+        "away": "La Coruna",
+        "p_home": 63.1,
+        "p_draw": 19.4,
+        "p_away": 17.5,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Betis",
+        "away": "Osasuna",
+        "p_home": 64.5,
+        "p_draw": 19.6,
+        "p_away": 15.9,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Santander",
+        "away": "Valencia",
+        "p_home": 43.0,
+        "p_draw": 31.8,
+        "p_away": 25.2,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Levante",
+        "away": "Sevilla",
+        "p_home": 37.1,
+        "p_draw": 31.6,
+        "p_away": 31.3,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    }
+]

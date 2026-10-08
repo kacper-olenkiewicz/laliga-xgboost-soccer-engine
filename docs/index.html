@@ -46,7 +46,7 @@
             const container = document.getElementById('matches-container');
             container.innerHTML = '';
 
-            if (matches.length === 0) {
+            if (!Array.isArray(matches) || matches.length === 0) {
                 container.innerHTML = '<div class="col-12 text-center"><h3>Brak nadchodzących meczów.</h3></div>';
                 return;
             }
@@ -87,13 +87,25 @@
                 </div>`;
                 container.innerHTML += html;
             });
-            document.getElementById('last-update').innerText = "Ostatnia aktualizacja: " + new Date().toLocaleString();
         } catch (error) {
             console.error(error);
             document.getElementById('matches-container').innerHTML = '<h3 class="text-danger text-center">Błąd wczytywania danych.</h3>';
         }
     }
+    async function loadLastUpdate() {
+        try {
+            const response = await fetch('last_update.json?t=' + new Date().getTime());
+            if (!response.ok) return;
+            const data = await response.json();
+            const updated = new Date(data && data.updated);
+            if (isNaN(updated.getTime())) return;
+            document.getElementById('last-update').innerText = "Ostatnia aktualizacja: " + updated.toLocaleString();
+        } catch (error) {
+            console.error(error);
+        }
+    }
     loadMatches();
+    loadLastUpdate();
 </script>
 </body>
 </html>

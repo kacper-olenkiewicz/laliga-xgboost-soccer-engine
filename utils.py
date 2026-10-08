@@ -25,7 +25,7 @@ def calculate_stats(team_name, matches_table, match_date):
     last_5 = club_matches.tail(5)
     stats = {
         'scored': 0, 'losed': 0, 
-        'shots': 0, 'shots_target': 0, 'corners': 0 , 'efficiency' : 0 , 'clean_sheets' : 0 , 'market_prob' : 0
+        'shots': 0, 'shots_target': 0, 'corners': 0 , 'efficiency' : 0 , 'clean_sheets' : 0
     }
     n = len(last_5)
     if n == 0 : return {k: 0 for k in stats}
@@ -39,7 +39,6 @@ def calculate_stats(team_name, matches_table, match_date):
             stats['shots_target'] += q['HST']
             stats['corners'] += q['HC']
             if q['FTAG'] == 0: stats['clean_sheets'] += 1
-            stats['market_prob'] += (1 / q['B365H'])
         else:
             stats['scored'] += q['FTAG']
             stats['losed'] += q['FTHG']
@@ -47,7 +46,6 @@ def calculate_stats(team_name, matches_table, match_date):
             stats['shots_target'] += q['AST']
             stats['corners'] += q['AC']
             if q['FTHG'] == 0: stats['clean_sheets'] += 1
-            stats['market_prob'] += (1 / q['B365A'])
     result = {k : v / n for k,v in stats.items()}
     if (result['shots_target']>0):
          result['efficiency'] = result['scored']/result['shots_target']
