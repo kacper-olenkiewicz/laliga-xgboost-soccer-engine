@@ -1,6 +1,6 @@
 # ⚽ LaLiga XGBoost Soccer Prediction Engine
 
-Automatyczny system przewidywania wyników meczów **La Liga** oparty na modelu **XGBoost**. Projekt codziennie pobiera dane, oblicza statystyki drużyn i generuje prognozy na nadchodzące mecze weekendowe, publikując wyniki na stronie GitHub Pages.
+Automatyczny system przewidywania wyników meczów **La Liga** oparty na modelu **XGBoost**. Projekt codziennie pobiera dane, oblicza cechy drużyn (Elo, model Dixona-Colesa, średnie kroczące) i generuje prognozy na nadchodzące mecze weekendowe, publikując wyniki na stronie GitHub Pages.
 **[Strona z wynikami](https://kacper-olenkiewicz.github.io/laliga-xgboost-soccer-engine/)**
 ---
 
@@ -23,8 +23,8 @@ Automatyczny system przewidywania wyników meczów **La Liga** oparty na modelu 
 ## 🔍 Jak to działa
 
 1. **Pobranie terminarza** — system pobiera listę najbliższych meczów La Liga wraz z kursami bukmacherskimi z football-data.co.uk (`fixtures.csv`), a gdy tam ich brak — z ESPN
-2. **Budowa bazy danych** — historyczne dane meczowe (7 ostatnich sezonów, aż do bieżącego) są pobierane z football-data.co.uk i wzbogacane o obliczone statystyki
-3. **Predykcja** — model XGBoost (najpierw oceniany na ostatnich 300 meczach, potem trenowany na całej historii) generuje prawdopodobieństwa wyniku (wygrana gospodarzy / remis / wygrana gości)
+2. **Budowa bazy danych** — historyczne dane meczowe (wszystkie sezony od 2000/01 do bieżącego) są pobierane z football-data.co.uk i wzbogacane o cechy liczone w jednym przejściu po historii
+3. **Predykcja** — model XGBoost koryguje prawdopodobieństwa wynikające z kursów bukmacherskich (najpierw oceniany metodą walk-forward na ok. 2 ostatnich sezonach, potem trenowany na całej historii) i generuje prawdopodobieństwa wyniku (wygrana gospodarzy / remis / wygrana gości)
 4. **Publikacja** — wyniki zapisywane są do pliku JSON i wyświetlane na statycznej stronie HTML (GitHub Pages)
 
 Cały proces jest **w pełni zautomatyzowany** dzięki GitHub Actions i uruchamia się codziennie o 5:00 UTC.
@@ -41,7 +41,7 @@ Cały proces jest **w pełni zautomatyzowany** dzięki GitHub Actions i uruchami
                                                       │               │  update_    │
 ┌─────────────┐     ┌──────────────────┐     ┌────────▼─────────┐     │  website.py │
 │ football-   │────▶│ build_database.py│────▶│ processed_data   │────▶│             │
-│ data.co.uk  │     │  (7 sezonów)     │     │     .csv         │     │  (XGBoost)  │
+│ data.co.uk  │     │  + features.py   │     │ + team_state.pkl │     │  (XGBoost)  │
 └─────────────┘     └──────────────────┘     └──────────────────┘     └──────┬──────┘
                                                                              │
                                                                     ┌────────▼────────┐
@@ -60,65 +60,63 @@ Cały proces jest **w pełni zautomatyzowany** dzięki GitHub Actions i uruchami
 
 Źródła sprawdzane po kolei (następne używane tylko, gdy poprzednie nic nie zwróci):
 
-1. **football-data.co.uk** — [`fixtures.csv`](https://www.football-data.co.uk/fixtures.csv), wiersze z `Div == 'SP1'` i datą od dziś. Nazwy drużyn są identyczne jak w danych historycznych, a kursy pochodzą z kolumn `B365H`/`B365A` (lub średnich `AvgH`/`AvgA`)
-2. **API ESPN** (`site.api.espn.com`, mecze z najbliższych 7 dni) — kursy moneyline (DraftKings) przeliczane na kursy dziesiętne
+1. **football-data.co.uk** — [`fixtures.csv`](https://www.football-data.co.uk/fixtures.csv), wiersze z `Div == 'SP1'` i datą od dziś. Nazwy drużyn są identyczne jak w danych historycznych, a kursy H/D/A pochodzą z kolumn `B365H`/`B365D`/`B365A` (gdy niepełne — ze średnich `AvgH`/`AvgD`/`AvgA`)
+2. **API ESPN** (`site.api.espn.com`, mecze z najbliższych 7 dni) — kursy moneyline H/D/A (DraftKings) przeliczane na kursy dziesiętne
 3. **Strona ESPN** (`espn.com/soccer/fixtures`, przez `cloudscraper`) — bez kursów
 
 - Dla ESPN nazwy drużyn są mapowane na format bazy danych (np. `"Atlético Madrid"` → `"Ath Madrid"`, `"Espanyol"` → `"Espanol"`) za pomocą [`map_name()`](scraper.py), z fuzzy matchingiem (`difflib.get_close_matches`) jako ostatnią deską ratunku
-- Zapisuje wynik do `weekend_fixtures.csv` (kolumny `Date, Home, Away, OddsH, OddsA`; brak kursów = `0`)
+- Zapisuje wynik do `weekend_fixtures.csv` (kolumny `Date, Home, Away, OddsH, OddsD, OddsA`; brak kursów = `0`)
 
 ### 2. Budowa bazy danych — [`build_database.py`](build_database.py)
 
-- Pobiera historyczne dane meczowe z **7 ostatnich sezonów** La Liga za pomocą funkcji [`download_data()`](build_database.py). Lista sezonów liczona jest dynamicznie z bieżącej daty (sezon zaczyna się w lipcu, np. w październiku 2026 bieżący to 2026/27 → sezony 2020/21 — 2026/27). Brakujące (404) lub puste pliki są pomijane
+- Pobiera historyczne dane meczowe La Liga **od sezonu 2000/01 do bieżącego** za pomocą funkcji [`download_data()`](build_database.py). Lista sezonów liczona jest dynamicznie z bieżącej daty (sezon zaczyna się w lipcu). Brakujące (404) lub puste pliki są pomijane, a wiersze o różnej długości w plikach CSV są poprawnie wczytywane
 - Źródło danych: [football-data.co.uk](https://www.football-data.co.uk/)
-- Funkcja [`process_history()`](build_database.py) wzbogaca każdy mecz o obliczone cechy statystyczne (forma, skuteczność, kursy bukmacherskie itd.)
-- Cechy liczone są wyłącznie z meczów rozegranych **przed** datą danego spotkania (brak wycieku danych)
-- Gdy brak kursów B365, `MarketDiff` = `NaN` (XGBoost obsługuje braki natywnie)
-- Wynik zapisywany jest do `processed_data.csv` (~2300 meczów, z kolumną `Season`)
+- Pierwsze sezony służą tylko do „rozgrzania” Elo i modelu Dixona-Colesa — model trenowany jest od sezonu 2005/06
+- Cechy liczone są w **jednym przejściu po historii** (funkcja `build_features()` w [`features.py`](features.py)); stan drużyn aktualizowany jest dopiero po całym dniu meczowym, więc cechy pochodzą wyłącznie z meczów rozegranych **przed** danym spotkaniem (brak wycieku danych), a mecze z tego samego dnia się nie widzą
+- Wynik zapisywany jest do `processed_data.csv` (~10 000 meczów, z kolumną `Season`), a stan drużyn na dziś (Elo, średnie, parametry Dixona-Colesa) do `team_state.pkl` — z niego liczone są cechy nadchodzących meczów
 
-### 3. Funkcje pomocnicze — [`utils.py`](utils.py)
+### 3. Cechy — [`features.py`](features.py)
 
-#### [`check_form()`](utils.py)
-Oblicza formę drużyny na podstawie **ostatnich 5 meczów**:
-- Wygrana u siebie: **3 pkt**
-- Remis u siebie: **1 pkt**
-- Wygrana na wyjeździe: **3.5 pkt** (bonus za trudniejsze warunki)
-- Remis na wyjeździe: **1.5 pkt**
-
-#### [`calculate_stats()`](utils.py)
-Oblicza średnie statystyki z ostatnich 5 meczów:
-- Strzelone / stracone bramki
-- Strzały / strzały celne
-- Rzuty rożne
-- Skuteczność (efficiency)
-- Czyste konta (clean sheets)
+Moduł wspólny dla `build_database.py` i `update_website.py`:
+- **Elo** ważone różnicą bramek (K=10, przewaga własnego boiska 60 pkt, 10% regresji do średniej między sezonami)
+- **Dixon-Coles** — ważony model Poissona (atak/obrona drużyn), przeliczany co tydzień na meczach z ostatnich 1100 dni (starsze mecze mają mniejszą wagę)
+- **Średnie wykładnicze (EWM)** statystyk drużyn (gole, strzały, strzały celne, rożne, punkty — za i przeciw)
+- **Beniaminkowie** i drużyny bez historii dostają wartości startowe (średnia spadkowiczów), a nie zera
+- **Kursy przed meczem** (B365, zapasowo średnia rynkowa; nigdy kursy zamknięcia) zamieniane na prawdopodobieństwa **metodą potęgową**: `p_i = (1/kurs_i)^k`, gdzie `k` dobrane tak, by suma wynosiła 1 — usuwa marżę bukmachera lepiej niż zwykła normalizacja
 
 ---
 
 ## 🤖 Model predykcyjny
 
-| Parametr | Wartość |
+Prognoza dla każdego meczu wybierana jest według tego, jakie kursy są dostępne:
+
+| Poziom | Dane wejściowe | Model |
+|---|---|---|
+| 1 | Kursy H/D/A | **XGBClassifier** startujący od prawdopodobieństw rynkowych (`base_margin = log p_rynek`) i korygujący je cechami Elo / Dixon-Coles / EWM |
+| 2 | Tylko kursy H/A | Regresja logistyczna na `log(1/kurs)` |
+| 3 | Brak kursów | Regresja logistyczna na Elo, Dixonie-Colesie i średnich EWM |
+
+| Parametr XGBoost | Wartość |
 |---|---|
-| Algorytm | **XGBClassifier** |
-| Liczba drzew (`n_estimators`) | 200 |
+| Liczba drzew (`n_estimators`) | 100 |
 | Learning rate | 0.01 |
 | Maksymalna głębokość (`max_depth`) | 2 |
 | Min. waga liścia (`min_child_weight`) | 10 |
 | Subsampling | 0.8 |
 | Klasy | `H` (wygrana gospodarzy), `D` (remis), `A` (wygrana gości) |
-| Skuteczność testowa | ~53% (bukmacher: ~53%) |
 
-Przy każdym uruchomieniu [`update_website.py`](update_website.py) najpierw wykonuje **ewaluację czasową**: model trenowany jest na wszystkich meczach poza ostatnimi 300, a na tych 300 wypisywane są accuracy i log-loss modelu w porównaniu z prawdopodobieństwami z kursów B365 (znormalizowanymi o marżę) oraz z rozkładem częstości H/D/A. Następnie model końcowy trenowany jest na pełnym zbiorze historycznym. Parametry modelu zostały dobrane na tej walidacji (najniższy log-loss przy możliwie prostym modelu: płytkie drzewa, mały learning rate) i są wpisane na stałe w `make_model()`.
+Przy każdym uruchomieniu [`update_website.py`](update_website.py) najpierw wykonuje **ewaluację walk-forward** na ostatnich 760 meczach (ok. 2 sezony): co miesiąc modele trenowane są na wszystkich wcześniejszych meczach i oceniane na meczach z kolejnego miesiąca. Wypisywane są log-loss, RPS i accuracy modelu w porównaniu z kursami B365 (zwykła normalizacja i metoda potęgowa) oraz 95% przedział ufności (bootstrap po tygodniach) dla różnicy log-loss. Następnie modele końcowe trenowane są na pełnym zbiorze historycznym.
 
 Przykładowy wynik (październik 2026):
 
 ```
-Model:      accuracy = 0.533, log-loss = 0.9740
-Bukmacher:  accuracy = 0.530, log-loss = 0.9724 (na 300 meczach)
-Częstości:  log-loss = 1.0497 (zawsze ten sam rozkład H/D/A)
+Model (XGBoost + rynek)        log-loss = 0.9567, RPS = 0.1937, accuracy = 0.547
+Tylko kursy H/A (poziom 2)     log-loss = 0.9614, RPS = 0.1946, accuracy = 0.546
+Bez kursów (poziom 3)          log-loss = 0.9667, RPS = 0.1971, accuracy = 0.529
+Bukmacher (normalizacja)       log-loss = 0.9607, RPS = 0.1946, accuracy = 0.543
+Bukmacher (metoda potęgowa)    log-loss = 0.9583, RPS = 0.1941, accuracy = 0.543
+Częstości H/D/A                log-loss = 1.0595, RPS = 0.2270, accuracy = 0.466
 ```
-
-`MarketDiff` dla nadchodzących meczów liczony jest z prawdziwych kursów (`OddsH`/`OddsA`); jeśli ich brak, predykcję wykonuje osobny model trenowany bez cechy `MarketDiff` (dane treningowe zawsze mają kursy, więc `NaN` byłby przez XGBoost traktowany jak silny faworyt gospodarzy).
 
 ### Logika rekomendacji
 
@@ -136,20 +134,17 @@ Funkcja w [`update_website.py`](update_website.py) generuje typy na podstawie pr
 
 ## 📐 Cechy (features) modelu
 
-Model wykorzystuje **17 cech** obliczanych dla każdego meczu:
-
-| Cecha | Opis |
-|---|---|
-| `HomeGaz` / `AwayGaz` | Forma drużyny (ostatnie 5 meczów) |
-| `HomeScoredAvg` / `AwayScoredAvg` | Średnia strzelonych bramek |
-| `HomeLosedAvg` / `AwayLosedAvg` | Średnia straconych bramek |
-| `HomeShotsAvg` / `AwayShotsAvg` | Średnia strzałów |
-| `HomeSTargetAvg` / `AwaySTargetAvg` | Średnia strzałów celnych |
-| `HomeCornersAvg` / `AwayCornersAvg` | Średnia rzutów rożnych |
-| `HomeClean_sheets` / `AwayClean_sheets` | Czyste konta w ostatnich 5 meczach |
-| `EffDiff` | Różnica skuteczności drużyn |
-| `GD_Diff` | Różnica bilansu bramkowego |
-| `MarketDiff` | Różnica implikowanych prawdopodobieństw z kursów bukmacherskich (B365) |
+| Cecha | Opis | Poziom |
+|---|---|---|
+| `MktH` / `MktD` / `MktA` | Prawdopodobieństwa z kursów H/D/A (metoda potęgowa) — punkt startowy XGBoost | 1 |
+| `Overround` | Marża bukmachera | 1 |
+| `EloDiff` | Różnica rankingów Elo | 1, 3 |
+| `lDC_HD` / `lDC_AD` | Log-ilorazy szans z modelu Dixona-Colesa (gospodarz/remis, goście/remis) | 1, 3 |
+| `DC_tot` | Oczekiwana liczba goli w meczu (Dixon-Coles) | 1, 3 |
+| `d8_*` / `d20_*` | Różnice średnich EWM (półtrwanie 8 / 20 meczów): gole, strzały, celne, rożne, punkty | 1 / 3 |
+| `ppg_diff` | Różnica punktów na mecz w bieżącym sezonie | 1 |
+| `promoH` / `promoA` | Czy drużyna jest beniaminkiem | 1 |
+| `LogInvH` / `LogInvA` | `log(1/kurs)` gospodarzy i gości | 2 |
 
 ---
 
@@ -191,7 +186,8 @@ GitHub wyłącza zaplanowane workflowy po 60 dniach braku aktywności w repozyto
 |---|---|
 | **pandas** | Operacje na danych tabelarycznych, CSV |
 | **xgboost** | Model klasyfikacyjny XGBClassifier |
-| **scikit-learn** | Metryki ewaluacji (accuracy, log-loss) |
+| **scikit-learn** | Regresja logistyczna (poziomy 2 i 3), standaryzacja cech |
+| **scipy** | Dopasowanie modelu Dixona-Colesa, rozkład Poissona |
 | **cloudscraper** | Zapasowy scraping strony ESPN z omijaniem Cloudflare |
 | **requests** | Pobieranie danych z football-data.co.uk i API ESPN |
 | **lxml** | Parser HTML dla `pd.read_html()` |
@@ -244,8 +240,9 @@ Następnie otwórz `http://localhost:8000` w przeglądarce.
 ├── scraper.py              # Pobieranie nadchodzących meczów i kursów
 ├── build_database.py       # Pobieranie i przetwarzanie danych historycznych
 ├── update_website.py       # Trening modelu i generowanie prognoz
-├── utils.py                # Funkcje pomocnicze (forma, statystyki)
-├── processed_data.csv      # Przetworzona baza meczów (generowana, ~2300 rekordów, poza repo - .gitignore)
+├── features.py             # Cechy: Elo, Dixon-Coles, EWM, kursy (wspólne dla bazy i predykcji)
+├── processed_data.csv      # Przetworzona baza meczów (generowana, ~10 000 rekordów, poza repo - .gitignore)
+├── team_state.pkl          # Stan drużyn na dziś (generowany, poza repo - .gitignore)
 ├── weekend_fixtures.csv    # Nadchodzące mecze (generowane, poza repo - .gitignore)
 ├── requirements.txt        # Zależności Pythona
 ├── LICENSE                 # Licencja MIT
@@ -268,4 +265,4 @@ Projekt udostępniony na licencji [MIT](LICENSE).
 
 ---
 
-> ⚠️ **Disclaimer:** Prognozy generowane przez model mają charakter wyłącznie informacyjny i edukacyjny. Nie stanowią porady bukmacherskiej. Skuteczność modelu wynosi ~53%, co oznacza, że błędne predykcje są częste.
+> ⚠️ **Disclaimer:** Prognozy generowane przez model mają charakter wyłącznie informacyjny i edukacyjny. Nie stanowią porady bukmacherskiej. Skuteczność modelu wynosi ~54%, co oznacza, że błędne predykcje są częste.

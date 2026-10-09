@@ -3,75 +3,139 @@ import numpy as np
 import json
 import os
 import sys
+import pickle
 from datetime import datetime, timezone
 from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, log_loss
-from utils import check_form, calculate_stats
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from features import market_features
 
-FEATURES = [
-    'HomeGaz', 'AwayGaz',
-    'HomeScoredAvg', 'HomeLosedAvg', 'HomeShotsAvg', 'HomeSTargetAvg', 'HomeCornersAvg',
-    'AwayScoredAvg', 'AwayLosedAvg', 'AwayShotsAvg', 'AwaySTargetAvg', 'AwayCornersAvg',
-    'EffDiff', 'HomeClean_sheets', 'AwayClean_sheets', 'GD_Diff', 'MarketDiff'
-]
-TARGET_MAP = {'H': 2, 'A': 0, 'D': 1}
-HOLDOUT_SIZE = 300
+TARGET_MAP = {'H': 2, 'A': 0, 'D': 1}      # kolumny prawdopodobieństw: A, D, H
+TRAIN_FROM = '0506'                         # wcześniejsze sezony tylko "rozgrzewają" Elo / Dixona-Colesa
+STATE_FILE = 'team_state.pkl'
+EVAL_MATCHES = 760                          # ewaluacja na ok. 2 ostatnich sezonach
+
+ELO_DC = ['EloDiff', 'lDC_HD', 'lDC_AD', 'DC_tot']
+EWM_STATS = ['gf', 'ga', 'tf', 'ta', 'pts', 'sf', 'sa', 'cf']
+# Poziom 1 (kursy H/D/A): XGBoost poprawia prawdopodobieństwa rynkowe (base_margin = log p_rynek)
+FEATURES_T1 = ELO_DC + [f'd8_{s}' for s in EWM_STATS] + ['ppg_diff', 'promoH', 'promoA', 'Overround']
+MARKET = ['MktA', 'MktD', 'MktH']
+# Poziom 2 (tylko kursy H/A): regresja logistyczna na log(1/kurs)
+FEATURES_T2 = ['LogInvH', 'LogInvA']
+# Poziom 3 (bez kursów): regresja logistyczna na Elo, Dixonie-Colesie i średnich EWM
+FEATURES_T3 = ELO_DC + [f'd20_{s}' for s in EWM_STATS]
 
 def make_model():
-    # Parametry dobrane na walidacji czasowej (log-loss): więcej płytkich drzew z małym learning rate
-    # daje lepiej skalibrowane prawdopodobieństwa niż poprzednie 50 drzew (zbyt ściśnięte wokół średniej)
-    return XGBClassifier(n_estimators=200, learning_rate=0.01, max_depth=2, min_child_weight=10,
+    # Płytkie drzewa i mały learning rate: model tylko lekko koryguje rynek (dobrane na walidacji walk-forward)
+    return XGBClassifier(n_estimators=100, learning_rate=0.01, max_depth=2, min_child_weight=10,
                          subsample=0.8, random_state=42)
 
-def market_diff(odds_h, odds_a):
-    # Brak kursów (0 / NaN) -> NaN, tak samo jak w danych treningowych
-    try:
-        odds_h, odds_a = float(odds_h), float(odds_a)
-    except (TypeError, ValueError):
-        return np.nan
-    if np.isnan(odds_h) or np.isnan(odds_a) or odds_h <= 0 or odds_a <= 0:
-        return np.nan
-    return 1 / odds_h - 1 / odds_a
+def make_lr(C):
+    return make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=2000))
 
-def evaluate_model(train_df, features):
-    """Prosta walidacja czasowa: trening na starszych meczach, test na ostatnich HOLDOUT_SIZE."""
+def fit_models(train):
+    y = train['FTR'].map(TARGET_MAP)
+    t1 = train.dropna(subset=MARKET)
+    t2 = train.dropna(subset=FEATURES_T2)
+    t3 = train.dropna(subset=FEATURES_T3)
+    return {
+        'xgb': make_model().fit(t1[FEATURES_T1], y[t1.index], base_margin=np.log(t1[MARKET].values)),
+        'lr2': make_lr(1.0).fit(t2[FEATURES_T2].values, y[t2.index]),
+        'lr3': make_lr(0.1).fit(t3[FEATURES_T3].values, y[t3.index]),
+        'means3': t3[FEATURES_T3].mean(),
+    }
+
+def predict_tier(models, X, tier):
+    if tier == 1:
+        return models['xgb'].predict_proba(X[FEATURES_T1], base_margin=np.log(X[MARKET].values))
+    if tier == 2:
+        return models['lr2'].predict_proba(X[FEATURES_T2].values)
+    return models['lr3'].predict_proba(X[FEATURES_T3].fillna(models['means3']).values)
+
+def predict(models, X):
+    """Prawdopodobieństwa (A, D, H) i poziom modelu: 1 = kursy H/D/A, 2 = tylko kursy H/A, 3 = bez kursów."""
+    X = X.reset_index(drop=True)
+    tiers = np.where(X[MARKET].notna().all(axis=1), 1, np.where(X[FEATURES_T2].notna().all(axis=1), 2, 3))
+    probs = np.zeros((len(X), 3))
+    for t in (1, 2, 3):
+        m = tiers == t
+        if m.any():
+            probs[m] = predict_tier(models, X[m], t)
+    return probs, tiers
+
+def match_metrics(P, y):
+    P = np.clip(P, 1e-12, 1)
+    ll = -np.log(P[np.arange(len(y)), y])
+    cum_p, cum_o = np.cumsum(P, 1), np.cumsum(np.eye(3)[y], 1)
+    rps = ((cum_p[:, :2] - cum_o[:, :2]) ** 2).sum(1) / 2
+    return ll, rps, (P.argmax(1) == y)
+
+def bootstrap_diff(d, groups, n=1000):
+    """95% przedział dla średniej różnicy, bootstrap blokowy po tygodniach (mecze z kolejki są zależne)."""
+    _, inv = np.unique(groups, return_inverse=True)
+    sums, counts = np.bincount(inv, d), np.bincount(inv)
+    rng = np.random.default_rng(0)
+    draws = rng.integers(0, len(sums), (n, len(sums)))
+    boot = sums[draws].sum(1) / counts[draws].sum(1)
+    return np.percentile(boot, [2.5, 97.5])
+
+def evaluate_model(train_df):
+    """Walk-forward: ostatnie EVAL_MATCHES meczów, modele trenowane co miesiąc na wszystkich wcześniejszych meczach."""
     try:
-        data = train_df.sort_values('Date')
-        if len(data) <= HOLDOUT_SIZE * 2:
+        data = train_df.sort_values('Date').reset_index(drop=True)
+        if len(data) <= EVAL_MATCHES * 3:
             print("Za mało danych do ewaluacji modelu.")
             return
 
-        train, test = data.iloc[:-HOLDOUT_SIZE], data.iloc[-HOLDOUT_SIZE:]
-        y_tr = train['FTR'].map(TARGET_MAP)
-        y_te = test['FTR'].map(TARGET_MAP)
+        test = np.arange(len(data) - EVAL_MATCHES, len(data))
+        months = data['Date'].dt.to_period('M').values
+        P = {k: np.full((len(data), 3), np.nan) for k in ('model', 't2', 't3')}
+        for month in pd.unique(months[test]):
+            rows = test[months[test] == month]
+            models = fit_models(data[data['Date'] < data.loc[rows, 'Date'].min()])
+            X = data.loc[rows]
+            P['model'][rows] = predict(models, X)[0]
+            ok = X[FEATURES_T2].notna().all(axis=1).values     # regresja logistyczna nie przyjmuje NaN (mecz bez kursów)
+            if ok.any():
+                P['t2'][rows[ok]] = predict_tier(models, X[ok], 2)
+            P['t3'][rows] = predict_tier(models, X, 3)
 
-        model = make_model()
-        model.fit(train[features], y_tr)
-        probs = model.predict_proba(test[features])
+        d = data.loc[test]
+        d = d[d[MARKET].notna().all(axis=1)]
+        rows, y = d.index.values, d['FTR'].map(TARGET_MAP).values
+        freq = data.loc[:test[0] - 1, 'FTR'].map(TARGET_MAP).value_counts(normalize=True).reindex([0, 1, 2]).values
+        candidates = {
+            'Model (XGBoost + rynek)': P['model'][rows],
+            'Tylko kursy H/A (poziom 2)': P['t2'][rows],
+            'Bez kursów (poziom 3)': P['t3'][rows],
+            'Bukmacher (normalizacja)': d[['BasicA', 'BasicD', 'BasicH']].values,
+            'Bukmacher (metoda potęgowa)': d[MARKET].values,
+            'Częstości H/D/A': np.tile(freq, (len(d), 1)),
+        }
+        print(f"--- Ewaluacja walk-forward ({len(d)} meczów od {d['Date'].min().date()} do {d['Date'].max().date()}, "
+              f"trening co miesiąc) ---")
+        ll = {}
+        for name, probs in candidates.items():
+            ll[name], rps, acc = match_metrics(probs, y)
+            print(f"{name:30s} log-loss = {ll[name].mean():.4f}, RPS = {rps.mean():.4f}, accuracy = {acc.mean():.3f}")
 
-        print(f"--- Ewaluacja (ostatnie {len(test)} meczów, od {test['Date'].min().date()} do {test['Date'].max().date()}) ---")
-        print(f"Model:      accuracy = {accuracy_score(y_te, probs.argmax(axis=1)):.3f}, log-loss = {log_loss(y_te, probs, labels=[0, 1, 2]):.4f}")
-
-        # Baseline: prawdopodobieństwa z kursów B365 (znormalizowane o marżę bukmachera)
-        odds = test[['B365A', 'B365D', 'B365H']].apply(pd.to_numeric, errors='coerce')
-        mask = (odds > 0).all(axis=1)
-        if mask.sum() > 0:
-            implied = 1 / odds[mask].values
-            implied = implied / implied.sum(axis=1, keepdims=True)
-            y_b = y_te[mask]
-            print(f"Bukmacher:  accuracy = {accuracy_score(y_b, implied.argmax(axis=1)):.3f}, log-loss = {log_loss(y_b, implied, labels=[0, 1, 2]):.4f} (na {mask.sum()} meczach)")
-
-        freq = y_tr.value_counts(normalize=True).reindex([0, 1, 2]).fillna(0).values
-        print(f"Częstości:  log-loss = {log_loss(y_te, np.tile(freq, (len(y_te), 1)), labels=[0, 1, 2]):.4f} (zawsze ten sam rozkład H/D/A)")
+        weeks = d['Date'].dt.to_period('W').astype(str).values
+        for base in ('Bukmacher (normalizacja)', 'Bukmacher (metoda potęgowa)'):
+            diff = ll['Model (XGBoost + rynek)'] - ll[base]
+            lo, hi = bootstrap_diff(diff, weeks)
+            print(f"Różnica log-loss model - {base}: {diff.mean():+.4f} (95% CI {lo:+.4f} .. {hi:+.4f}; ujemna = model lepszy)")
     except Exception as e:
         print(f"Błąd podczas ewaluacji modelu: {e}")
 
 def main():
     try:
-        df = pd.read_csv('processed_data.csv')
+        df = pd.read_csv('processed_data.csv', dtype={'Season': str})
         df['Date'] = pd.to_datetime(df['Date'])
-    except FileNotFoundError:
-        print("BŁĄD: Brak pliku processed_data.csv! Uruchom najpierw build_database.py")
+        with open(STATE_FILE, 'rb') as f:
+            state = pickle.load(f)
+    except FileNotFoundError as e:
+        print(f"BŁĄD: Brak pliku {e.filename}! Uruchom najpierw build_database.py")
         sys.exit(1)
 
     try:
@@ -87,61 +151,34 @@ def main():
 
     results_for_json = []
 
-    train_df = df[df['FTR'].isin(TARGET_MAP.keys())].copy()
-    available_features = [f for f in FEATURES if f in df.columns]
+    train_df = df[df['FTR'].isin(TARGET_MAP.keys()) & (df['Season'] >= TRAIN_FROM)].copy()
 
-    evaluate_model(train_df, available_features)
+    evaluate_model(train_df)
 
-    # Model końcowy trenowany na wszystkich danych
-    model = make_model()
-    model.fit(train_df[available_features], train_df['FTR'].map(TARGET_MAP))
-
-    # Model zapasowy bez MarketDiff - dla meczów bez kursów (w treningu kursy są zawsze,
-    # więc NaN w MarketDiff byłby traktowany przez XGBoost jak silny faworyt gospodarzy)
-    no_odds_features = [f for f in available_features if f != 'MarketDiff']
-    model_no_odds = make_model()
-    model_no_odds.fit(train_df[no_odds_features], train_df['FTR'].map(TARGET_MAP))
+    # Modele końcowe trenowane na wszystkich danych
+    models = fit_models(train_df)
 
     today = pd.Timestamp.now().normalize()
+    tier_names = {1: "kursy H/D/A + XGBoost", 2: "tylko kursy H/A", 3: "bez kursów"}
 
     for match in fixtures:
-        home = match['Home']
-        away = match['Away']
+        home = str(match['Home']).strip()
+        away = str(match['Away']).strip()
 
-        # Statystyki liczone tylko z meczów przed datą spotkania
         match_date = pd.to_datetime(match.get('Date'), errors='coerce')
         if pd.isna(match_date):
             match_date = today + pd.Timedelta(days=1)
 
-        h_stats = calculate_stats(home, df, match_date)
-        a_stats = calculate_stats(away, df, match_date)
-        h_gaz = check_form(home, df, match_date)
-        a_gaz = check_form(away, df, match_date)
+        for team in (home, away):
+            if not state.knows(team):
+                print(f"  Uwaga: brak historii dla {team} w ostatnich sezonach - wartości startowe beniaminka.")
 
-        if h_gaz == 0 and h_stats['scored'] == 0 and h_stats['shots'] == 0:
-            print(f"  Uwaga: brak historii dla {home} - statystyki zerowe.")
-        if a_gaz == 0 and a_stats['scored'] == 0 and a_stats['shots'] == 0:
-            print(f"  Uwaga: brak historii dla {away} - statystyki zerowe.")
-
-        input_row = pd.DataFrame([{
-            'HomeGaz': h_gaz, 'AwayGaz': a_gaz,
-            'HomeScoredAvg': h_stats['scored'], 'HomeLosedAvg': h_stats['losed'],
-            'HomeShotsAvg': h_stats['shots'], 'HomeSTargetAvg': h_stats['shots_target'],
-            'HomeCornersAvg': h_stats['corners'], 'AwayScoredAvg': a_stats['scored'],
-            'AwayLosedAvg': a_stats['losed'], 'AwayShotsAvg': a_stats['shots'],
-            'AwaySTargetAvg': a_stats['shots_target'], 'AwayCornersAvg': a_stats['corners'],
-            'EffDiff': h_stats['efficiency'] - a_stats['efficiency'],
-            'HomeClean_sheets': h_stats['clean_sheets'], 'AwayClean_sheets': a_stats['clean_sheets'],
-            'GD_Diff': (h_stats['scored'] - h_stats['losed']) - (a_stats['scored'] - a_stats['losed']),
-            'MarketDiff': market_diff(match.get('OddsH'), match.get('OddsA'))
-        }])
-
-        input_row = input_row[available_features].astype(float)
-
-        if 'MarketDiff' in input_row and input_row['MarketDiff'].isna().any():
-            probs = model_no_odds.predict_proba(input_row[no_odds_features])[0]
-        else:
-            probs = model.predict_proba(input_row)[0]
+        # Cechy z wyników do dziś + kursy (brak = 0 / NaN; stary format CSV bez OddsD też działa)
+        row = state.fixture_features(home, away, match_date)
+        row.update(market_features(match.get('OddsH'), match.get('OddsD', 0), match.get('OddsA')).iloc[0].to_dict())
+        probs, tiers = predict(models, pd.DataFrame([row]))
+        probs = probs[0]
+        print(f"  {home} - {away}: model {tier_names[tiers[0]]}")
 
         p_home = float(probs[2] * 100)
         p_draw = float(probs[1] * 100)

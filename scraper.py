@@ -16,7 +16,7 @@ HEADERS = {
     'Referer': 'https://www.google.com/'
 }
 
-COLUMNS = ["Date", "Home", "Away", "OddsH", "OddsA"]
+COLUMNS = ["Date", "Home", "Away", "OddsH", "OddsD", "OddsA"]
 
 # Nazwy drużyn dokładnie tak, jak w danych z football-data.co.uk
 MY_TEAMS = [
@@ -85,15 +85,18 @@ def scrape_football_data(div='SP1'):
         df = df[df['Date'] >= pd.Timestamp.now().normalize()]
 
         for _, row in df.iterrows():
-            odds_h = to_float(row.get('B365H'))
-            odds_a = to_float(row.get('B365A'))
-            if odds_h == 0 or odds_a == 0:
-                odds_h = to_float(row.get('AvgH'))
-                odds_a = to_float(row.get('AvgA'))
+            # Kursy brane jako komplet H/D/A z jednego źródła: B365, a gdy niepełne - średnia rynkowa
+            odds = (0, 0, 0)
+            for src in ('B365', 'Avg'):
+                triple = tuple(to_float(row.get(src + s)) for s in 'HDA')
+                if all(triple):
+                    odds = triple
+                    break
+            odds_h, odds_d, odds_a = odds
 
-            print(f"  > Znaleziono: {row['HomeTeam']} vs {row['AwayTeam']} ({odds_h} / {odds_a})")
+            print(f"  > Znaleziono: {row['HomeTeam']} vs {row['AwayTeam']} ({odds_h} / {odds_d} / {odds_a})")
             fixtures.append({"Date": row['Date'].strftime('%Y-%m-%d'), "Home": row['HomeTeam'],
-                             "Away": row['AwayTeam'], "OddsH": odds_h, "OddsA": odds_a})
+                             "Away": row['AwayTeam'], "OddsH": odds_h, "OddsD": odds_d, "OddsA": odds_a})
     except Exception as e:
         print(f"Błąd przy pobieraniu {FIXTURES_URL}: {e}")
     return fixtures
@@ -121,15 +124,18 @@ def scrape_espn_api(days=7):
                 a = map_name(teams['away'])
                 if not h or not a or h == a: continue
 
-                odds_h, odds_a = 0, 0
+                odds_h, odds_d, odds_a = 0, 0, 0
                 if comp.get('odds'):
-                    ml = comp['odds'][0].get('moneyline', {})
+                    odds = comp['odds'][0]
+                    ml = odds.get('moneyline', {})
                     odds_h = american_to_decimal(ml.get('home', {}).get('close', {}).get('odds'))
                     odds_a = american_to_decimal(ml.get('away', {}).get('close', {}).get('odds'))
+                    odds_d = american_to_decimal(ml.get('draw', {}).get('close', {}).get('odds')
+                                                 or odds.get('drawOdds', {}).get('moneyLine'))
 
-                print(f"  > Znaleziono: {h} vs {a} ({odds_h} / {odds_a})")
+                print(f"  > Znaleziono: {h} vs {a} ({odds_h} / {odds_d} / {odds_a})")
                 fixtures.append({"Date": event['date'][:10], "Home": h, "Away": a,
-                                 "OddsH": odds_h, "OddsA": odds_a})
+                                 "OddsH": odds_h, "OddsD": odds_d, "OddsA": odds_a})
             except Exception:
                 continue
     return fixtures
@@ -166,7 +172,7 @@ def scrape_espn_html():
 
                             if h and a and h != a:
                                 print(f"  > Znaleziono: {h} vs {a}")
-                                fixtures.append({"Date": "", "Home": h, "Away": a, "OddsH": 0, "OddsA": 0})
+                                fixtures.append({"Date": "", "Home": h, "Away": a, "OddsH": 0, "OddsD": 0, "OddsA": 0})
                         except Exception:
                             continue
             except ValueError:
