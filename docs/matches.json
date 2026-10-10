@@ -1,91 +1,82 @@
 [
     {
-        "home": "Malaga",
-        "away": "Espanol",
-        "p_home": 34.7,
-        "p_draw": 34.1,
-        "p_away": 31.3,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
         "home": "Vallecano",
         "away": "Ath Bilbao",
-        "p_home": 36.9,
-        "p_draw": 30.6,
-        "p_away": 32.5,
+        "p_home": 35.2,
+        "p_draw": 28.4,
+        "p_away": 36.5,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Alaves",
         "away": "Ath Madrid",
-        "p_home": 20.7,
-        "p_draw": 23.8,
-        "p_away": 55.5,
-        "rec": "Wygrana Gości",
-        "class": "lose"
+        "p_home": 22.0,
+        "p_draw": 23.3,
+        "p_away": 54.7,
+        "rec": "Goście lub Remis",
+        "class": "safe"
     },
     {
         "home": "Barcelona",
         "away": "Getafe",
-        "p_home": 73.8,
-        "p_draw": 14.4,
-        "p_away": 11.8,
+        "p_home": 92.2,
+        "p_draw": 5.3,
+        "p_away": 2.5,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Real Madrid",
         "away": "Villarreal",
-        "p_home": 75.4,
-        "p_draw": 13.2,
-        "p_away": 11.4,
+        "p_home": 72.0,
+        "p_draw": 14.2,
+        "p_away": 13.8,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Elche",
         "away": "Celta",
-        "p_home": 36.5,
-        "p_draw": 30.8,
-        "p_away": 32.7,
+        "p_home": 33.6,
+        "p_draw": 30.1,
+        "p_away": 36.3,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Sociedad",
         "away": "La Coruna",
-        "p_home": 63.6,
-        "p_draw": 19.7,
-        "p_away": 16.8,
+        "p_home": 59.8,
+        "p_draw": 23.9,
+        "p_away": 16.3,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Betis",
         "away": "Osasuna",
-        "p_home": 64.4,
-        "p_draw": 20.0,
-        "p_away": 15.6,
+        "p_home": 62.5,
+        "p_draw": 22.6,
+        "p_away": 14.9,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Santander",
         "away": "Valencia",
-        "p_home": 42.9,
-        "p_draw": 32.1,
-        "p_away": 25.0,
-        "rec": "Gospodarz lub Remis",
-        "class": "safe"
+        "p_home": 40.7,
+        "p_draw": 25.7,
+        "p_away": 33.6,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
     },
     {
         "home": "Levante",
         "away": "Sevilla",
-        "p_home": 36.5,
-        "p_draw": 31.6,
-        "p_away": 31.9,
+        "p_home": 36.0,
+        "p_draw": 30.5,
+        "p_away": 33.5,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     }
