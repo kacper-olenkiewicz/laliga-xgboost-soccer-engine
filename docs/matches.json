@@ -1,41 +1,5 @@
 [
     {
-        "home": "Vallecano",
-        "away": "Ath Bilbao",
-        "p_home": 35.2,
-        "p_draw": 28.4,
-        "p_away": 36.5,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Alaves",
-        "away": "Ath Madrid",
-        "p_home": 22.0,
-        "p_draw": 23.3,
-        "p_away": 54.7,
-        "rec": "Goście lub Remis",
-        "class": "safe"
-    },
-    {
-        "home": "Barcelona",
-        "away": "Getafe",
-        "p_home": 92.2,
-        "p_draw": 5.3,
-        "p_away": 2.5,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Real Madrid",
-        "away": "Villarreal",
-        "p_home": 72.0,
-        "p_draw": 14.2,
-        "p_away": 13.8,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Elche",
         "away": "Celta",
         "p_home": 33.6,
