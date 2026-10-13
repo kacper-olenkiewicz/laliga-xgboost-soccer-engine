@@ -1,10 +1,91 @@
 [
     {
-        "home": "Levante",
+        "home": "La Coruna",
+        "away": "Levante",
+        "p_home": 46.9,
+        "p_draw": 26.4,
+        "p_away": 26.7,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Espanol",
+        "away": "Ath Madrid",
+        "p_home": 21.8,
+        "p_draw": 24.9,
+        "p_away": 53.3,
+        "rec": "Goście lub Remis",
+        "class": "safe"
+    },
+    {
+        "home": "Villarreal",
+        "away": "Elche",
+        "p_home": 67.8,
+        "p_draw": 17.9,
+        "p_away": 14.3,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Betis",
+        "away": "Barcelona",
+        "p_home": 15.7,
+        "p_draw": 16.1,
+        "p_away": 68.1,
+        "rec": "Wygrana Gości",
+        "class": "lose"
+    },
+    {
+        "home": "Valencia",
+        "away": "Ath Bilbao",
+        "p_home": 27.3,
+        "p_draw": 27.6,
+        "p_away": 45.1,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Osasuna",
+        "away": "Santander",
+        "p_home": 50.3,
+        "p_draw": 24.1,
+        "p_away": 25.6,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Celta",
+        "away": "Alaves",
+        "p_home": 45.6,
+        "p_draw": 28.6,
+        "p_away": 25.8,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Malaga",
+        "away": "Sociedad",
+        "p_home": 32.0,
+        "p_draw": 27.0,
+        "p_away": 41.1,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Real Madrid",
         "away": "Sevilla",
-        "p_home": 36.0,
-        "p_draw": 30.5,
-        "p_away": 33.5,
+        "p_home": 79.5,
+        "p_draw": 12.2,
+        "p_away": 8.3,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Getafe",
+        "away": "Vallecano",
+        "p_home": 32.7,
+        "p_draw": 31.6,
+        "p_away": 35.7,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     }
