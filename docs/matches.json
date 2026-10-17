@@ -1,14 +1,5 @@
 [
     {
-        "home": "La Coruna",
-        "away": "Levante",
-        "p_home": 48.2,
-        "p_draw": 26.5,
-        "p_away": 25.2,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
         "home": "Espanol",
         "away": "Ath Madrid",
         "p_home": 19.3,
