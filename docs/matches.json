@@ -1,41 +1,5 @@
 [
     {
-        "home": "Espanol",
-        "away": "Ath Madrid",
-        "p_home": 19.3,
-        "p_draw": 23.9,
-        "p_away": 56.8,
-        "rec": "Wygrana Gości",
-        "class": "lose"
-    },
-    {
-        "home": "Villarreal",
-        "away": "Elche",
-        "p_home": 68.7,
-        "p_draw": 17.1,
-        "p_away": 14.2,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Betis",
-        "away": "Barcelona",
-        "p_home": 16.5,
-        "p_draw": 15.4,
-        "p_away": 68.1,
-        "rec": "Wygrana Gości",
-        "class": "lose"
-    },
-    {
-        "home": "Valencia",
-        "away": "Ath Bilbao",
-        "p_home": 27.2,
-        "p_draw": 28.9,
-        "p_away": 43.9,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
         "home": "Osasuna",
         "away": "Santander",
         "p_home": 48.2,
