@@ -1,46 +1,10 @@
 [
     {
-        "home": "Osasuna",
-        "away": "Santander",
-        "p_home": 48.2,
-        "p_draw": 25.6,
-        "p_away": 26.2,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Celta",
-        "away": "Alaves",
-        "p_home": 45.7,
-        "p_draw": 27.8,
-        "p_away": 26.5,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Malaga",
-        "away": "Sociedad",
-        "p_home": 30.1,
-        "p_draw": 27.6,
-        "p_away": 42.3,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Real Madrid",
-        "away": "Sevilla",
-        "p_home": 78.9,
-        "p_draw": 12.1,
-        "p_away": 9.0,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Getafe",
         "away": "Vallecano",
-        "p_home": 33.1,
-        "p_draw": 31.4,
-        "p_away": 35.4,
+        "p_home": 32.6,
+        "p_draw": 31.6,
+        "p_away": 35.8,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     }
