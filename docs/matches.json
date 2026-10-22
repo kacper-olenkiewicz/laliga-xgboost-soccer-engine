@@ -1,11 +1,92 @@
 [
     {
-        "home": "Levante",
-        "away": "Ath Bilbao",
-        "p_home": 27.7,
-        "p_draw": 27.5,
+        "home": "Alaves",
+        "away": "Malaga",
+        "p_home": 55.1,
+        "p_draw": 25.9,
+        "p_away": 19.0,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Vallecano",
+        "away": "Elche",
+        "p_home": 54.4,
+        "p_draw": 25.2,
+        "p_away": 20.4,
+        "rec": "Gospodarz lub Remis",
+        "class": "safe"
+    },
+    {
+        "home": "Santander",
+        "away": "Espanol",
+        "p_home": 39.3,
+        "p_draw": 25.9,
+        "p_away": 34.8,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Valencia",
+        "away": "Villarreal",
+        "p_home": 29.3,
+        "p_draw": 25.9,
         "p_away": 44.8,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
+    },
+    {
+        "home": "Ath Madrid",
+        "away": "La Coruna",
+        "p_home": 76.3,
+        "p_draw": 15.5,
+        "p_away": 8.2,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Ath Bilbao",
+        "away": "Getafe",
+        "p_home": 60.8,
+        "p_draw": 23.6,
+        "p_away": 15.6,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Celta",
+        "away": "Betis",
+        "p_home": 33.9,
+        "p_draw": 26.9,
+        "p_away": 39.3,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Sociedad",
+        "away": "Levante",
+        "p_home": 57.6,
+        "p_draw": 21.6,
+        "p_away": 20.8,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Barcelona",
+        "away": "Real Madrid",
+        "p_home": 60.8,
+        "p_draw": 15.4,
+        "p_away": 23.8,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Sevilla",
+        "away": "Osasuna",
+        "p_home": 49.2,
+        "p_draw": 27.8,
+        "p_away": 23.0,
+        "rec": "Gospodarz lub Remis",
+        "class": "safe"
     }
 ]
