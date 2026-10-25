@@ -1,41 +1,5 @@
 [
     {
-        "home": "Vallecano",
-        "away": "Elche",
-        "p_home": 53.2,
-        "p_draw": 25.9,
-        "p_away": 20.9,
-        "rec": "Gospodarz lub Remis",
-        "class": "safe"
-    },
-    {
-        "home": "Santander",
-        "away": "Espanol",
-        "p_home": 41.3,
-        "p_draw": 25.9,
-        "p_away": 32.9,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Valencia",
-        "away": "Villarreal",
-        "p_home": 27.6,
-        "p_draw": 26.9,
-        "p_away": 45.4,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Ath Madrid",
-        "away": "La Coruna",
-        "p_home": 78.1,
-        "p_draw": 14.9,
-        "p_away": 7.1,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Ath Bilbao",
         "away": "Getafe",
         "p_home": 62.6,
@@ -47,9 +11,9 @@
     {
         "home": "Celta",
         "away": "Betis",
-        "p_home": 32.3,
-        "p_draw": 28.1,
-        "p_away": 39.6,
+        "p_home": 32.1,
+        "p_draw": 28.2,
+        "p_away": 39.7,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
