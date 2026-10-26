@@ -1,41 +1,5 @@
 [
     {
-        "home": "Ath Bilbao",
-        "away": "Getafe",
-        "p_home": 62.6,
-        "p_draw": 23.1,
-        "p_away": 14.3,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Celta",
-        "away": "Betis",
-        "p_home": 32.1,
-        "p_draw": 28.2,
-        "p_away": 39.7,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Sociedad",
-        "away": "Levante",
-        "p_home": 59.4,
-        "p_draw": 23.3,
-        "p_away": 17.3,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Barcelona",
-        "away": "Real Madrid",
-        "p_home": 59.6,
-        "p_draw": 15.6,
-        "p_away": 24.9,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Sevilla",
         "away": "Osasuna",
         "p_home": 49.4,
