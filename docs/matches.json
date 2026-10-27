@@ -1,11 +1,92 @@
 [
     {
-        "home": "Sevilla",
-        "away": "Osasuna",
-        "p_home": 49.4,
+        "home": "Villarreal",
+        "away": "Espanol",
+        "p_home": 68.2,
+        "p_draw": 17.9,
+        "p_away": 13.9,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Levante",
+        "away": "Ath Madrid",
+        "p_home": 20.2,
+        "p_draw": 21.2,
+        "p_away": 58.6,
+        "rec": "Wygrana Gości",
+        "class": "lose"
+    },
+    {
+        "home": "Vallecano",
+        "away": "Celta",
+        "p_home": 40.6,
         "p_draw": 28.8,
-        "p_away": 21.8,
-        "rec": "Gospodarz lub Remis",
-        "class": "safe"
+        "p_away": 30.6,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Betis",
+        "away": "Malaga",
+        "p_home": 72.6,
+        "p_draw": 15.8,
+        "p_away": 11.6,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Barcelona",
+        "away": "Alaves",
+        "p_home": 88.7,
+        "p_draw": 8.5,
+        "p_away": 2.8,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
+    },
+    {
+        "home": "Getafe",
+        "away": "Sevilla",
+        "p_home": 30.4,
+        "p_draw": 33.1,
+        "p_away": 36.6,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Santander",
+        "away": "Real Madrid",
+        "p_home": 10.2,
+        "p_draw": 11.9,
+        "p_away": 77.9,
+        "rec": "Wygrana Gości",
+        "class": "lose"
+    },
+    {
+        "home": "Elche",
+        "away": "Valencia",
+        "p_home": 38.4,
+        "p_draw": 28.2,
+        "p_away": 33.3,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "Ath Bilbao",
+        "away": "Sociedad",
+        "p_home": 47.6,
+        "p_draw": 24.8,
+        "p_away": 27.6,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
+    },
+    {
+        "home": "La Coruna",
+        "away": "Osasuna",
+        "p_home": 44.2,
+        "p_draw": 29.8,
+        "p_away": 26.0,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
     }
 ]
