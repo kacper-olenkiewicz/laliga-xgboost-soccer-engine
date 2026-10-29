@@ -2,45 +2,45 @@
     {
         "home": "Villarreal",
         "away": "Espanol",
-        "p_home": 70.1,
-        "p_draw": 17.1,
-        "p_away": 12.8,
+        "p_home": 69.4,
+        "p_draw": 18.1,
+        "p_away": 12.6,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Levante",
         "away": "Ath Madrid",
-        "p_home": 19.8,
-        "p_draw": 20.7,
-        "p_away": 59.4,
+        "p_home": 19.0,
+        "p_draw": 20.3,
+        "p_away": 60.7,
         "rec": "Wygrana Gości",
         "class": "lose"
     },
     {
         "home": "Vallecano",
         "away": "Celta",
-        "p_home": 40.6,
-        "p_draw": 28.8,
-        "p_away": 30.6,
+        "p_home": 40.1,
+        "p_draw": 29.4,
+        "p_away": 30.5,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Betis",
         "away": "Malaga",
-        "p_home": 73.6,
-        "p_draw": 15.7,
-        "p_away": 10.7,
+        "p_home": 72.6,
+        "p_draw": 16.4,
+        "p_away": 11.0,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Barcelona",
         "away": "Alaves",
-        "p_home": 89.5,
-        "p_draw": 7.8,
-        "p_away": 2.7,
+        "p_home": 90.1,
+        "p_draw": 6.5,
+        "p_away": 3.4,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
@@ -65,9 +65,9 @@
     {
         "home": "Elche",
         "away": "Valencia",
-        "p_home": 40.0,
-        "p_draw": 27.6,
-        "p_away": 32.4,
+        "p_home": 41.0,
+        "p_draw": 28.1,
+        "p_away": 30.9,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
