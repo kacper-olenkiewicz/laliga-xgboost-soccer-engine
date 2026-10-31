@@ -1,14 +1,5 @@
 [
     {
-        "home": "Villarreal",
-        "away": "Espanol",
-        "p_home": 71.1,
-        "p_draw": 16.4,
-        "p_away": 12.5,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Levante",
         "away": "Ath Madrid",
         "p_home": 17.7,
