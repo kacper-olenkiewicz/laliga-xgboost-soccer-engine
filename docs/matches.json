@@ -1,41 +1,5 @@
 [
     {
-        "home": "Levante",
-        "away": "Ath Madrid",
-        "p_home": 17.7,
-        "p_draw": 20.2,
-        "p_away": 62.1,
-        "rec": "Wygrana Gości",
-        "class": "lose"
-    },
-    {
-        "home": "Vallecano",
-        "away": "Celta",
-        "p_home": 39.7,
-        "p_draw": 29.8,
-        "p_away": 30.6,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Betis",
-        "away": "Malaga",
-        "p_home": 75.4,
-        "p_draw": 15.8,
-        "p_away": 8.8,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Barcelona",
-        "away": "Alaves",
-        "p_home": 90.4,
-        "p_draw": 6.6,
-        "p_away": 3.0,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Getafe",
         "away": "Sevilla",
         "p_home": 30.4,
