@@ -1,14 +1,5 @@
 [
     {
-        "home": "Sevilla",
-        "away": "Alaves",
-        "p_home": 52.3,
-        "p_draw": 27.3,
-        "p_away": 20.4,
-        "rec": "Gospodarz lub Remis",
-        "class": "safe"
-    },
-    {
         "home": "Malaga",
         "away": "Santander",
         "p_home": 41.5,
