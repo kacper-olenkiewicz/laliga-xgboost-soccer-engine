@@ -1,41 +1,5 @@
 [
     {
-        "home": "Malaga",
-        "away": "Santander",
-        "p_home": 41.5,
-        "p_draw": 25.7,
-        "p_away": 32.8,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Espanol",
-        "away": "La Coruna",
-        "p_home": 41.8,
-        "p_draw": 28.7,
-        "p_away": 29.4,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Osasuna",
-        "away": "Ath Bilbao",
-        "p_home": 25.2,
-        "p_draw": 27.1,
-        "p_away": 47.8,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Valencia",
-        "away": "Real Madrid",
-        "p_home": 10.6,
-        "p_draw": 14.8,
-        "p_away": 74.6,
-        "rec": "Wygrana Gości",
-        "class": "lose"
-    },
-    {
         "home": "Elche",
         "away": "Betis",
         "p_home": 28.5,
