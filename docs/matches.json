@@ -11,9 +11,9 @@
     {
         "home": "Alaves",
         "away": "La Coruna",
-        "p_home": 44.8,
-        "p_draw": 28.4,
-        "p_away": 26.8,
+        "p_home": 43.6,
+        "p_draw": 28.7,
+        "p_away": 27.7,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
@@ -29,18 +29,18 @@
     {
         "home": "Sevilla",
         "away": "Betis",
-        "p_home": 31.8,
-        "p_draw": 26.4,
-        "p_away": 41.8,
+        "p_home": 32.8,
+        "p_draw": 26.6,
+        "p_away": 40.6,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Real Madrid",
         "away": "Celta",
-        "p_home": 82.9,
-        "p_draw": 11.4,
-        "p_away": 5.7,
+        "p_home": 83.4,
+        "p_draw": 11.1,
+        "p_away": 5.5,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
@@ -74,10 +74,19 @@
     {
         "home": "Getafe",
         "away": "Ath Madrid",
-        "p_home": 16.3,
-        "p_draw": 24.2,
-        "p_away": 59.4,
+        "p_home": 17.2,
+        "p_draw": 24.6,
+        "p_away": 58.2,
         "rec": "Wygrana Gości",
         "class": "lose"
+    },
+    {
+        "home": "Levante",
+        "away": "Elche",
+        "p_home": 44.0,
+        "p_draw": 26.4,
+        "p_away": 29.7,
+        "rec": "Ryzykowny mecz",
+        "class": "neutral"
     }
 ]
