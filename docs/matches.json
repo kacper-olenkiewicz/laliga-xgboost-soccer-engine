@@ -2,27 +2,27 @@
     {
         "home": "Ath Bilbao",
         "away": "Espanol",
-        "p_home": 64.7,
-        "p_draw": 22.1,
-        "p_away": 13.2,
+        "p_home": 65.5,
+        "p_draw": 21.7,
+        "p_away": 12.8,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Alaves",
         "away": "La Coruna",
-        "p_home": 43.6,
-        "p_draw": 28.7,
-        "p_away": 27.7,
+        "p_home": 43.1,
+        "p_draw": 28.9,
+        "p_away": 28.0,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Vallecano",
         "away": "Valencia",
-        "p_home": 49.3,
-        "p_draw": 26.4,
-        "p_away": 24.3,
+        "p_home": 50.5,
+        "p_draw": 26.7,
+        "p_away": 22.8,
         "rec": "Gospodarz lub Remis",
         "class": "safe"
     },
@@ -38,9 +38,9 @@
     {
         "home": "Real Madrid",
         "away": "Celta",
-        "p_home": 83.4,
-        "p_draw": 11.1,
-        "p_away": 5.5,
+        "p_home": 84.1,
+        "p_draw": 10.8,
+        "p_away": 5.1,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
@@ -56,9 +56,9 @@
     {
         "home": "Santander",
         "away": "Sociedad",
-        "p_home": 29.7,
-        "p_draw": 22.2,
-        "p_away": 48.1,
+        "p_home": 29.2,
+        "p_draw": 22.9,
+        "p_away": 48.0,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
