@@ -1,14 +1,5 @@
 [
     {
-        "home": "Ath Bilbao",
-        "away": "Espanol",
-        "p_home": 64.5,
-        "p_draw": 22.1,
-        "p_away": 13.4,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
         "home": "Alaves",
         "away": "La Coruna",
         "p_home": 43.9,
