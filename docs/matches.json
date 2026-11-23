@@ -1,41 +1,5 @@
 [
     {
-        "home": "Barcelona",
-        "away": "Villarreal",
-        "p_home": 83.2,
-        "p_draw": 9.2,
-        "p_away": 7.6,
-        "rec": "Wygrana Gospodarzy",
-        "class": "win"
-    },
-    {
-        "home": "Santander",
-        "away": "Sociedad",
-        "p_home": 27.4,
-        "p_draw": 22.1,
-        "p_away": 50.4,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
-        "home": "Osasuna",
-        "away": "Malaga",
-        "p_home": 53.4,
-        "p_draw": 26.2,
-        "p_away": 20.4,
-        "rec": "Gospodarz lub Remis",
-        "class": "safe"
-    },
-    {
-        "home": "Getafe",
-        "away": "Ath Madrid",
-        "p_home": 14.9,
-        "p_draw": 23.9,
-        "p_away": 61.2,
-        "rec": "Wygrana Gości",
-        "class": "lose"
-    },
-    {
         "home": "Levante",
         "away": "Elche",
         "p_home": 44.4,
