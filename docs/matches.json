@@ -2,27 +2,27 @@
     {
         "home": "Levante",
         "away": "Santander",
-        "p_home": 48.2,
-        "p_draw": 22.0,
-        "p_away": 29.8,
+        "p_home": 45.9,
+        "p_draw": 23.4,
+        "p_away": 30.7,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "Betis",
         "away": "Vallecano",
-        "p_home": 61.5,
-        "p_draw": 21.0,
-        "p_away": 17.5,
+        "p_home": 60.2,
+        "p_draw": 21.2,
+        "p_away": 18.6,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Malaga",
         "away": "Ath Bilbao",
-        "p_home": 21.5,
-        "p_draw": 25.3,
-        "p_away": 53.2,
+        "p_home": 21.2,
+        "p_draw": 25.8,
+        "p_away": 53.0,
         "rec": "Goście lub Remis",
         "class": "safe"
     },
@@ -38,18 +38,18 @@
     {
         "home": "Real Madrid",
         "away": "Alaves",
-        "p_home": 86.7,
-        "p_draw": 8.4,
-        "p_away": 4.9,
+        "p_home": 88.2,
+        "p_draw": 7.7,
+        "p_away": 4.1,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Valencia",
         "away": "Osasuna",
-        "p_home": 45.3,
-        "p_draw": 28.8,
-        "p_away": 25.9,
+        "p_home": 43.4,
+        "p_draw": 29.6,
+        "p_away": 27.0,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
@@ -83,9 +83,9 @@
     {
         "home": "Espanol",
         "away": "Getafe",
-        "p_home": 46.0,
-        "p_draw": 30.5,
-        "p_away": 23.5,
+        "p_home": 47.0,
+        "p_draw": 29.9,
+        "p_away": 23.1,
         "rec": "Gospodarz lub Remis",
         "class": "safe"
     }
