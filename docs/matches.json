@@ -20,45 +20,45 @@
     {
         "home": "Malaga",
         "away": "Ath Bilbao",
-        "p_home": 21.2,
-        "p_draw": 25.8,
-        "p_away": 53.0,
+        "p_home": 20.8,
+        "p_draw": 25.2,
+        "p_away": 54.1,
         "rec": "Goście lub Remis",
         "class": "safe"
     },
     {
         "home": "Elche",
         "away": "Ath Madrid",
-        "p_home": 15.5,
-        "p_draw": 20.4,
-        "p_away": 64.1,
+        "p_home": 15.7,
+        "p_draw": 19.6,
+        "p_away": 64.7,
         "rec": "Wygrana Gości",
         "class": "lose"
     },
     {
         "home": "Real Madrid",
         "away": "Alaves",
-        "p_home": 88.2,
-        "p_draw": 7.7,
-        "p_away": 4.1,
+        "p_home": 87.8,
+        "p_draw": 7.9,
+        "p_away": 4.3,
         "rec": "Wygrana Gospodarzy",
         "class": "win"
     },
     {
         "home": "Valencia",
         "away": "Osasuna",
-        "p_home": 43.4,
+        "p_home": 44.5,
         "p_draw": 29.6,
-        "p_away": 27.0,
+        "p_away": 25.8,
         "rec": "Ryzykowny mecz",
         "class": "neutral"
     },
     {
         "home": "La Coruna",
         "away": "Barcelona",
-        "p_home": 10.8,
-        "p_draw": 12.2,
-        "p_away": 77.0,
+        "p_home": 9.2,
+        "p_draw": 11.6,
+        "p_away": 79.3,
         "rec": "Wygrana Gości",
         "class": "lose"
     },
@@ -88,5 +88,23 @@
         "p_away": 23.1,
         "rec": "Gospodarz lub Remis",
         "class": "safe"
+    },
+    {
+        "home": "Sociedad",
+        "away": "Real Madrid",
+        "p_home": 16.1,
+        "p_draw": 18.0,
+        "p_away": 65.9,
+        "rec": "Wygrana Gości",
+        "class": "lose"
+    },
+    {
+        "home": "Barcelona",
+        "away": "Ath Madrid",
+        "p_home": 72.4,
+        "p_draw": 14.4,
+        "p_away": 13.2,
+        "rec": "Wygrana Gospodarzy",
+        "class": "win"
     }
 ]
