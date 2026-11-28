@@ -1,14 +1,5 @@
 [
     {
-        "home": "Levante",
-        "away": "Santander",
-        "p_home": 49.7,
-        "p_draw": 21.6,
-        "p_away": 28.7,
-        "rec": "Ryzykowny mecz",
-        "class": "neutral"
-    },
-    {
         "home": "Betis",
         "away": "Vallecano",
         "p_home": 61.3,
